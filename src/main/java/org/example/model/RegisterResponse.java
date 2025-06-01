@@ -19,8 +19,9 @@ public class RegisterResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class RegisterData {
-        private String phone;
+        private Long id;
         private String username;
+        private String phone;
         private String role;
     }
 } 

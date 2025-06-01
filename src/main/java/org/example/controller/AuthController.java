@@ -34,14 +34,14 @@ public class AuthController {
                 String token = UUID.randomUUID().toString();
                 LoginResponse response = LoginResponse.builder()
                     .code(200)
-                    .message("登录成功")
+                    .message("Login success")
                     .data(LoginResponse.LoginData.builder()
                         .token(token)
                         .userInfo(LoginResponse.UserInfo.builder()
+                            .id(user.getId())
                             .phone(user.getPhone())
                             .username(user.getUsername())
                             .role(user.getRole())
-                            .avatar("")
                             .build())
                         .build())
                     .build();
@@ -49,7 +49,7 @@ public class AuthController {
             })
             .orElse(ResponseEntity.ok(LoginResponse.builder()
                 .code(400)
-                .message("手机号或密码错误")
+                .message("Invalid phone or password")
                 .data(null)
                 .build()));
     }
@@ -60,7 +60,7 @@ public class AuthController {
         if (!PHONE_PATTERN.matcher(registerRequest.getPhone()).matches()) {
             return ResponseEntity.ok(RegisterResponse.builder()
                 .code(400)
-                .message("無效的手機號格式")
+                .message("Invalid phone format")
                 .data(null)
                 .build());
         }
@@ -69,7 +69,7 @@ public class AuthController {
         if (!PASSWORD_PATTERN.matcher(registerRequest.getPassword()).matches()) {
             return ResponseEntity.ok(RegisterResponse.builder()
                 .code(400)
-                .message("密碼格式不正確")
+                .message("Invalid password format")
                 .data(null)
                 .build());
         }
@@ -78,7 +78,7 @@ public class AuthController {
         if (userRepository.findByPhone(registerRequest.getPhone()).isPresent()) {
             return ResponseEntity.ok(RegisterResponse.builder()
                 .code(400)
-                .message("手機號已被註冊")
+                .message("Phone already registered")
                 .data(null)
                 .build());
         }
@@ -96,7 +96,7 @@ public class AuthController {
         // 返回成功響應
         return ResponseEntity.ok(RegisterResponse.builder()
             .code(200)
-            .message("註冊成功")
+            .message("Register success")
             .data(RegisterResponse.RegisterData.builder()
                 .phone(savedUser.getPhone())
                 .username(savedUser.getUsername())

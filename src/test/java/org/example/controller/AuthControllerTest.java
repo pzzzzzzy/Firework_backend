@@ -48,7 +48,7 @@ public class AuthControllerTest {
         LoginResponse response = objectMapper.readValue(responseBody, LoginResponse.class);
         
         assertEquals(200, response.getCode());
-        assertEquals("登录成功", response.getMessage());
+        assertEquals("Login success", response.getMessage());
         assertEquals("13800138000", response.getData().getUserInfo().getPhone());
     }
 
@@ -71,7 +71,7 @@ public class AuthControllerTest {
         LoginResponse response = objectMapper.readValue(responseBody, LoginResponse.class);
         
         assertEquals(400, response.getCode());
-        assertEquals("手机号或密码错误", response.getMessage());
+        assertEquals("Invalid phone or password", response.getMessage());
     }
 
     @Test
@@ -93,7 +93,7 @@ public class AuthControllerTest {
         LoginResponse response = objectMapper.readValue(responseBody, LoginResponse.class);
         
         assertEquals(400, response.getCode());
-        assertEquals("手机号或密码错误", response.getMessage());
+        assertEquals("Invalid phone or password", response.getMessage());
     }
 
     @Test
@@ -115,7 +115,7 @@ public class AuthControllerTest {
         LoginResponse response = objectMapper.readValue(responseBody, LoginResponse.class);
         
         assertEquals(400, response.getCode());
-        assertEquals("手机号或密码错误", response.getMessage());
+        assertEquals("Invalid phone or password", response.getMessage());
     }
 
     @Test
@@ -138,7 +138,7 @@ public class AuthControllerTest {
         RegisterResponse response = objectMapper.readValue(responseBody, RegisterResponse.class);
         
         assertEquals(200, response.getCode());
-        assertEquals("註冊成功", response.getMessage());
+        assertEquals("Register success", response.getMessage());
         assertEquals("13900139000", response.getData().getPhone());
         assertEquals("testuser2", response.getData().getUsername());
         assertEquals("USER", response.getData().getRole());
@@ -164,7 +164,7 @@ public class AuthControllerTest {
         RegisterResponse response = objectMapper.readValue(responseBody, RegisterResponse.class);
         
         assertEquals(400, response.getCode());
-        assertEquals("手機號已被註冊", response.getMessage());
+        assertEquals("Phone already registered", response.getMessage());
     }
 
     @Test
@@ -187,7 +187,7 @@ public class AuthControllerTest {
         RegisterResponse response = objectMapper.readValue(responseBody, RegisterResponse.class);
         
         assertEquals(400, response.getCode());
-        assertEquals("無效的手機號格式", response.getMessage());
+        assertEquals("Invalid phone format", response.getMessage());
     }
 
     @Test
@@ -210,6 +210,6 @@ public class AuthControllerTest {
         RegisterResponse response = objectMapper.readValue(responseBody, RegisterResponse.class);
         
         assertEquals(400, response.getCode());
-        assertEquals("密碼格式不正確", response.getMessage());
+        assertEquals("Invalid password format", response.getMessage());
     }
 }

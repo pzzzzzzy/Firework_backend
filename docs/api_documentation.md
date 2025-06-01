@@ -14,21 +14,56 @@
 - **請求體**:
   ```json
   {
-    "username": "string",  // 用戶名
-    "password": "string"   // 密碼
+    "phone": "string",    // 手機號碼
+    "password": "string"  // 密碼
   }
   ```
-- **響應**:
+- **密碼要求**：
+  - 長度：6-16位
+  - 必須包含字母和數字
+  - 格式：`/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,16}$/`
+- **手機號要求**：
+  - 必須是有效的中國手機號
+  - 格式：`/^1[3-9]\d{9}$/`
+- **成功響應**:
   ```json
   {
-    "token": "string",     // JWT認證令牌
-    "user": {
-      "id": "string",      // 用戶ID
-      "username": "string", // 用戶名
-      "role": "string"     // 用戶角色
+    "code": 200,          // 狀態碼
+    "message": "string",  // 提示信息
+    "data": {
+      "token": "string",  // JWT認證令牌
+      "userInfo": {
+        "phone": "string",     // 手機號
+        "username": "string",  // 用戶名
+        "role": "string",      // 用戶角色
+        "avatar": "string"     // 頭像URL
+      }
     }
   }
   ```
+- **錯誤響應**:
+  ```json
+  {
+    "code": 400,          // 錯誤狀態碼
+    "message": "string",  // 錯誤信息
+    "data": null
+  }
+  ```
+- **可能的錯誤情況**：
+  - 手機號和密碼不能為空
+  - 手機號或密碼錯誤
+- **認證流程**：
+  - 登入成功後，前端會將token保存在localStorage中
+  - 後續所有需要認證的請求都會在請求頭中帶上token：
+    ```
+    Authorization: Bearer <token>
+    ```
+  - 如果token過期或無效，會自動跳轉到登入頁面
+- **安全要求**：
+  - 密碼傳輸需要加密
+  - token需要設置過期時間
+  - 需要防止暴力破解（可以限制登入嘗試次數）
+  
 
 ### 用戶註冊
 - **URL**: `/api/auth/register`
@@ -36,21 +71,33 @@
 - **請求體**:
   ```json
   {
-    "username": "string",  // 用戶名
-    "password": "string",  // 密碼
-    "email": "string"      // 電子郵件
+  "phone": "string",      // 手機號碼（必填）
+  "username": "string",   // 用戶名（必填）
+  "password": "string"    // 密碼（必填，6-16位字符/數字）
   }
   ```
 - **響應**:
+成功响应
   ```json
   {
-    "message": "string",   // 註冊成功提示信息
-    "user": {
-      "id": "string",      // 用戶ID
-      "username": "string" // 用戶名
+    {
+    "code": 200,
+    "message": "註冊成功",
     }
   }
   ```
+响应失败
+  ```json
+  {
+    {
+  "code": 400,
+  "message": "錯誤信息",
+  "data": null
+    }
+  }
+  ```
+
+
 
 ## 部門相關 API
 
@@ -60,15 +107,18 @@
 - **響應**:
   ```json
   {
-    "departments": [
+    "code": 200,           // 狀態碼
+    "message": "獲取成功",  // 響應消息
+    "data": [
       {
-        "id": "string",    // 部門ID
+        "id": "number",    // 部門ID
         "name": "string",  // 部門名稱
         "courses": [
           {
-            "id": "string",          // 課程ID
-            "name": "string",        // 課程名稱
-            "description": "string"  // 課程描述
+            "id": "number",          // 課程ID
+            "title": "string",       // 課程名稱
+            "description": "string", // 課程描述
+            "date": "string"         // 課程日期
           }
         ]
       }

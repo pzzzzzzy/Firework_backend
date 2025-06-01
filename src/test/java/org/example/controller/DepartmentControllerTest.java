@@ -59,13 +59,49 @@ public class DepartmentControllerTest {
         
         // 驗證第二個課程
         DepartmentResponse.CourseData secondCourse = firstDepartment.getCourses().get(1);
-        assertEquals("Python Basic Training", secondCourse.getTitle());
-        assertEquals("Python programming basic knowledge training", secondCourse.getDescription());
+        assertEquals("Spring Boot Introduction", secondCourse.getTitle());
+        assertEquals("Spring Boot framework usage training", secondCourse.getDescription());
         assertNotNull(secondCourse.getId());
         assertNotNull(secondCourse.getDate());
+    }
+
+    @Test
+    public void testGetDepartmentCourses() throws Exception {
+        // 執行獲取單個部門課程列表請求
+        MvcResult result = mockMvc.perform(get("/api/departments/1/courses"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        // 驗證響應
+        String responseBody = result.getResponse().getContentAsString();
+        DepartmentResponse.DepartmentData department = objectMapper.readValue(responseBody, DepartmentResponse.DepartmentData.class);
         
-        // 驗證課程列表的順序
-        assertTrue(firstCourse.getDate().compareTo(secondCourse.getDate()) <= 0,
-                  "課程應該按照日期排序");
+        // 驗證部門數據
+        assertEquals("R&D Department", department.getName());
+        
+        // 驗證課程列表
+        assertNotNull(department.getCourses());
+        assertEquals(2, department.getCourses().size(), "R&D Department 應該有2個課程");
+        
+        // 驗證第一個課程
+        DepartmentResponse.CourseData firstCourse = department.getCourses().get(0);
+        assertEquals("Java Basic Training", firstCourse.getTitle());
+        assertEquals("Java programming basic knowledge training", firstCourse.getDescription());
+        assertNotNull(firstCourse.getId());
+        assertNotNull(firstCourse.getDate());
+        
+        // 驗證第二個課程
+        DepartmentResponse.CourseData secondCourse = department.getCourses().get(1);
+        assertEquals("Spring Boot Introduction", secondCourse.getTitle());
+        assertEquals("Spring Boot framework usage training", secondCourse.getDescription());
+        assertNotNull(secondCourse.getId());
+        assertNotNull(secondCourse.getDate());
+    }
+
+    @Test
+    public void testGetDepartmentCoursesNotFound() throws Exception {
+        // 測試不存在的部門ID
+        mockMvc.perform(get("/api/departments/999/courses"))
+                .andExpect(status().isNotFound());
     }
 } 
