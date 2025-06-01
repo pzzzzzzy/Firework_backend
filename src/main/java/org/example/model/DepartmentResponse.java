@@ -1,9 +1,9 @@
 package org.example.model;
 
-import lombok.Data;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
@@ -24,15 +24,15 @@ public class DepartmentResponse {
         private String name;
         private List<CourseData> courses;
     }
-}
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-class CourseData {
-    private Long id;
-    private String title;
-    private String description;
-    private String date;
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class CourseData {
+        private Long id;
+        private String title;
+        private String description;
+        private String date;
+    }
 } 

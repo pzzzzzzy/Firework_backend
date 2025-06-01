@@ -1,27 +1,56 @@
--- 清空用户表
-DELETE FROM users;
+DROP TABLE IF EXISTS courses;
+DROP TABLE IF EXISTS departments;
+DROP TABLE IF EXISTS users;
 
--- 插入测试用户（明文密码）
+CREATE TABLE departments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+);
+
+CREATE TABLE courses (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  department_id INT,
+  title VARCHAR(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  description VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  date DATE,
+  FOREIGN KEY (department_id) REFERENCES departments(id)
+);
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  password VARCHAR(128) NOT NULL,
+  role VARCHAR(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  phone VARCHAR(16) NOT NULL
+);
+
+-- Clear courses table and reset auto-increment primary key
+DELETE FROM courses;
+ALTER TABLE courses AUTO_INCREMENT = 1;
+
+-- Clear departments table and reset auto-increment primary key
+DELETE FROM departments;
+ALTER TABLE departments AUTO_INCREMENT = 1;
+
+-- Clear users table and reset auto-increment primary key (if any)
+DELETE FROM users;
+-- ALTER TABLE users AUTO_INCREMENT = 1;  -- Uncomment if there is an auto-increment primary key
+
+-- Insert test departments
+INSERT INTO departments (name) VALUES 
+('R&D Department'),
+('Marketing Department'),
+('HR Department');
+
+-- Insert test courses
+INSERT INTO courses (department_id, title, description, date) VALUES 
+(1, 'Java Basic Training', 'Java programming basic knowledge training', '2024-03-15'),
+(1, 'Spring Boot Introduction', 'Spring Boot framework usage training', '2024-03-16'),
+(2, 'Marketing Strategy', 'Basic knowledge training of marketing', '2024-03-17'),
+(2, 'Brand Management', 'Brand building and management training', '2024-03-18'),
+(3, 'Recruitment Skills', 'Efficient recruitment skills training', '2024-03-19'),
+(3, 'Employee Relationship Management', 'Employee relationship maintenance and management training', '2024-03-20');
+
+-- Insert test user (plain password)
 INSERT INTO users (username, password, role, phone) VALUES 
 ('testuser', 'password123', 'USER', '13800138000');
-
--- 清空课程表
-DELETE FROM courses;
-
--- 清空部门表
-DELETE FROM departments;
-
--- 插入测试部门
-INSERT INTO departments (name) VALUES 
-('研发部'),
-('市场部'),
-('人事部');
-
--- 插入测试课程
-INSERT INTO courses (department_id, title, description, date) VALUES 
-(1, 'Java基础培训', 'Java编程基础知识培训', '2024-03-15'),
-(1, 'Spring Boot入门', 'Spring Boot框架使用培训', '2024-03-16'),
-(2, '市场营销策略', '市场营销基础知识培训', '2024-03-17'),
-(2, '品牌管理', '品牌建设与管理培训', '2024-03-18'),
-(3, '招聘技巧', '高效招聘技巧培训', '2024-03-19'),
-(3, '员工关系管理', '员工关系维护与管理培训', '2024-03-20');

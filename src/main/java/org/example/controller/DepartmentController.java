@@ -30,7 +30,7 @@ public class DepartmentController {
                         .description(course.getDescription())
                         .date(course.getDate().toString())
                         .build())
-                    .collect(Collectors.toList());
+                    .collect(Collectors.<DepartmentResponse.CourseData>toList());
 
                 return DepartmentResponse.DepartmentData.builder()
                     .id(department.getId())
@@ -38,7 +38,7 @@ public class DepartmentController {
                     .courses(courseDataList)
                     .build();
             })
-            .collect(Collectors.toList());
+            .collect(Collectors.<DepartmentResponse.DepartmentData>toList());
 
         return ResponseEntity.ok(DepartmentResponse.builder()
             .code(200)

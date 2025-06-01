@@ -1,34 +1,26 @@
 package org.example.model;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegisterResponse {
     private Integer code;
     private String message;
-    private Data data;
+    private RegisterData data;
 
-    public Integer getCode() { return code; }
-    public void setCode(Integer code) { this.code = code; }
-    public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
-    public Data getData() { return data; }
-    public void setData(Data data) { this.data = data; }
-
-    @lombok.Data
+    @Data
     @Builder
-    public static class Data {
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class RegisterData {
         private String phone;
         private String username;
         private String role;
-
-        public String getPhone() { return phone; }
-        public void setPhone(String phone) { this.phone = phone; }
-        public String getUsername() { return username; }
-        public void setUsername(String username) { this.username = username; }
-        public String getRole() { return role; }
-        public void setRole(String role) { this.role = role; }
     }
 } 

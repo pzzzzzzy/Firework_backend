@@ -9,8 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -26,31 +25,47 @@ public class DepartmentControllerTest {
 
     @Test
     public void testGetAllDepartments() throws Exception {
-        // 执行获取部门列表请求
+        // 執行獲取部門列表請求
         MvcResult result = mockMvc.perform(get("/api/departments"))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        // 验证响应
+        // 驗證響應
         String responseBody = result.getResponse().getContentAsString();
         DepartmentResponse response = objectMapper.readValue(responseBody, DepartmentResponse.class);
         
-        // 验证响应状态
+        // 驗證響應狀態
         assertEquals(200, response.getCode());
-        assertEquals("获取成功", response.getMessage());
+        assertEquals("Success", response.getMessage());
         
-        // 验证数据
+        // 驗證數據
         assertNotNull(response.getData());
-        assertEquals(3, response.getData().size()); // 应该有3个部门
+        assertEquals(3, response.getData().size()); // 應該有3個部門
         
-        // 验证第一个部门的数据
+        // 驗證第一個部門的數據
         DepartmentResponse.DepartmentData firstDepartment = response.getData().get(0);
-        assertEquals("研发部", firstDepartment.getName());
-        assertEquals(2, firstDepartment.getCourses().size()); // 研发部应该有2个课程
+        assertEquals("R&D Department", firstDepartment.getName());
         
-        // 验证第一个部门的第一个课程
-        DepartmentResponse.DepartmentData.CourseData firstCourse = firstDepartment.getCourses().get(0);
-        assertEquals("Java基础培训", firstCourse.getTitle());
-        assertEquals("Java编程基础知识培训", firstCourse.getDescription());
+        // 驗證第一個部門的所有課程
+        assertNotNull(firstDepartment.getCourses());
+        assertEquals(2, firstDepartment.getCourses().size(), "R&D Department 應該有2個課程");
+        
+        // 驗證第一個課程
+        DepartmentResponse.CourseData firstCourse = firstDepartment.getCourses().get(0);
+        assertEquals("Java Basic Training", firstCourse.getTitle());
+        assertEquals("Java programming basic knowledge training", firstCourse.getDescription());
+        assertNotNull(firstCourse.getId());
+        assertNotNull(firstCourse.getDate());
+        
+        // 驗證第二個課程
+        DepartmentResponse.CourseData secondCourse = firstDepartment.getCourses().get(1);
+        assertEquals("Python Basic Training", secondCourse.getTitle());
+        assertEquals("Python programming basic knowledge training", secondCourse.getDescription());
+        assertNotNull(secondCourse.getId());
+        assertNotNull(secondCourse.getDate());
+        
+        // 驗證課程列表的順序
+        assertTrue(firstCourse.getDate().compareTo(secondCourse.getDate()) <= 0,
+                  "課程應該按照日期排序");
     }
 } 
