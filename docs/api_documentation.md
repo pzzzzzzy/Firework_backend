@@ -14,6 +14,23 @@
 - **請求體**:
   ```json
   {
+<<<<<<< HEAD
+    "username": "string",  // 用戶名
+    "password": "string"   // 密碼
+  }
+  ```
+- **響應**:
+  ```json
+  {
+    "token": "string",     // JWT認證令牌
+    "user": {
+      "id": "string",      // 用戶ID
+      "username": "string", // 用戶名
+      "role": "string"     // 用戶角色
+    }
+  }
+  ```
+=======
     "phone": "string",    // 手機號碼
     "password": "string"  // 密碼
   }
@@ -64,6 +81,7 @@
   - token需要設置過期時間
   - 需要防止暴力破解（可以限制登入嘗試次數）
   
+>>>>>>> 5cd355a547469223b773e2e5d6c25f23906527c0
 
 ### 用戶註冊
 - **URL**: `/api/auth/register`
@@ -71,6 +89,23 @@
 - **請求體**:
   ```json
   {
+<<<<<<< HEAD
+    "username": "string",  // 用戶名
+    "password": "string",  // 密碼
+    "email": "string"      // 電子郵件
+  }
+  ```
+- **響應**:
+  ```json
+  {
+    "message": "string",   // 註冊成功提示信息
+    "user": {
+      "id": "string",      // 用戶ID
+      "username": "string" // 用戶名
+    }
+  }
+  ```
+=======
   "phone": "string",      // 手機號碼（必填）
   "username": "string",   // 用戶名（必填）
   "password": "string"    // 密碼（必填，6-16位字符/數字）
@@ -98,6 +133,7 @@
   ```
 
 
+>>>>>>> 5cd355a547469223b773e2e5d6c25f23906527c0
 
 ## 部門相關 API
 
@@ -107,6 +143,17 @@
 - **響應**:
   ```json
   {
+<<<<<<< HEAD
+    "departments": [
+      {
+        "id": "string",    // 部門ID
+        "name": "string",  // 部門名稱
+        "courses": [
+          {
+            "id": "string",          // 課程ID
+            "name": "string",        // 課程名稱
+            "description": "string"  // 課程描述
+=======
     "code": 200,           // 狀態碼
     "message": "獲取成功",  // 響應消息
     "data": [
@@ -119,6 +166,7 @@
             "title": "string",       // 課程名稱
             "description": "string", // 課程描述
             "date": "string"         // 課程日期
+>>>>>>> 5cd355a547469223b773e2e5d6c25f23906527c0
           }
         ]
       }

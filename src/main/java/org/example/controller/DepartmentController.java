@@ -1,5 +1,8 @@
 package org.example.controller;
 
+
+import org.example.entity.Department;
+import org.example.model.DepartmentResponse;
 import org.example.entity.Course;
 import org.example.entity.Department;
 import org.example.model.DepartmentResponse;
@@ -18,6 +21,7 @@ public class DepartmentController {
 
     @Autowired
     private DepartmentRepository departmentRepository;
+
 
     @Autowired
     private CourseRepository courseRepository;
