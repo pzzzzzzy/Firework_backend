@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 DROP TABLE IF EXISTS favorite_resources;
 DROP TABLE IF EXISTS favorites;
 =======
 -- First drop tables with foreign key dependencies
+=======
+
+>>>>>>> 61e1b47dcabb2e89fc5cf8a83377ae21cb3c2843
 DROP TABLE IF EXISTS study_resources;
 >>>>>>> 5e59bce8f5d13be4dfd707033c485ee69a1c2c1d
 DROP TABLE IF EXISTS courses;
@@ -32,6 +36,7 @@ CREATE TABLE users (
 );
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 CREATE TABLE favorites (
     id VARCHAR(36) PRIMARY KEY,
     user_id INT NOT NULL,
@@ -56,6 +61,9 @@ CREATE TABLE favorite_resources (
 
 -- Clear courses table and reset auto-increment primary key
 =======
+=======
+
+>>>>>>> 61e1b47dcabb2e89fc5cf8a83377ae21cb3c2843
 CREATE TABLE study_resources (
   id INT AUTO_INCREMENT PRIMARY KEY,              -- 自增主键
   course_id INT,                                  -- 关联 courses 表的外键
@@ -95,11 +103,20 @@ INSERT INTO departments (name) VALUES
 
 -- Insert test courses
 INSERT INTO courses (department_id, title, description, date) VALUES 
+<<<<<<< HEAD
 -- Computer Science Courses
 (1, 'Data Structures and Algorithms', 'Fundamental data structures and algorithm design', '2024-03-15'),
 (1, 'Database Systems', 'Database design and management principles', '2024-03-16'),
 (1, 'Software Engineering', 'Software development methodologies and practices', '2024-03-17'),
 (1, 'Artificial Intelligence', 'Introduction to AI and machine learning', '2024-03-18'),
+=======
+(1, 'Java Basic Training', 'Java programming basic knowledge training', '2024-03-15'),
+(1, 'Python Basic Training', 'Python programming basic knowledge training', '2024-03-16'),
+(2, 'Marketing Strategy', 'Basic knowledge training of marketing', '2024-03-17'),
+(2, 'Brand Management', 'Brand building and management training', '2024-03-18'),
+(3, 'Recruitment Skills', 'Efficient recruitment skills training', '2024-03-19'),
+(3, 'Employee Relationship Management', 'Employee relationship maintenance and management training', '2024-03-20');
+>>>>>>> 61e1b47dcabb2e89fc5cf8a83377ae21cb3c2843
 
 -- Electronic Information Courses
 (2, 'Digital Circuit Design', 'Digital logic and circuit implementation', '2024-03-19'),

@@ -12,6 +12,7 @@ public class StudyResource {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
@@ -27,6 +28,7 @@ public class StudyResource {
 
     @Column(name = "upload_time")
     private LocalDateTime uploadTime;
+
 
     // Getter for courseId
     public Long getCourseId() {

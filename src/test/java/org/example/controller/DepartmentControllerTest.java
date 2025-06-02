@@ -59,8 +59,14 @@ public class DepartmentControllerTest {
         
         // 驗證第二個課程
         DepartmentResponse.CourseData secondCourse = firstDepartment.getCourses().get(1);
+<<<<<<< HEAD
         assertEquals("Database Systems", secondCourse.getTitle());
         assertEquals("Database design and management principles", secondCourse.getDescription());
+=======
+
+        assertEquals("Spring Boot Introduction", secondCourse.getTitle());
+        assertEquals("Spring Boot framework usage training", secondCourse.getDescription());
+>>>>>>> 61e1b47dcabb2e89fc5cf8a83377ae21cb3c2843
         assertNotNull(secondCourse.getId());
         assertNotNull(secondCourse.getDate());
     }
@@ -92,8 +98,13 @@ public class DepartmentControllerTest {
         
         // 驗證第二個課程
         DepartmentResponse.CourseData secondCourse = department.getCourses().get(1);
+<<<<<<< HEAD
         assertEquals("Database Systems", secondCourse.getTitle());
         assertEquals("Database design and management principles", secondCourse.getDescription());
+=======
+        assertEquals("Python Basic Training", secondCourse.getTitle());
+        assertEquals("Python programming basic knowledge training", secondCourse.getDescription());
+>>>>>>> 61e1b47dcabb2e89fc5cf8a83377ae21cb3c2843
         assertNotNull(secondCourse.getId());
         assertNotNull(secondCourse.getDate());
     }
