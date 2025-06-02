@@ -44,26 +44,37 @@ public class DepartmentControllerTest {
         
         // 驗證第一個部門的數據
         DepartmentResponse.DepartmentData firstDepartment = response.getData().get(0);
-        assertEquals("R&D Department", firstDepartment.getName());
+        assertEquals("Development", firstDepartment.getName());
         
         // 驗證第一個部門的所有課程
         assertNotNull(firstDepartment.getCourses());
-        assertEquals(2, firstDepartment.getCourses().size(), "R&D Department 應該有2個課程");
+        assertEquals(2, firstDepartment.getCourses().size(), "Development Department 應該有2個課程");
         
         // 驗證第一個課程
         DepartmentResponse.CourseData firstCourse = firstDepartment.getCourses().get(0);
-        assertEquals("Java Basic Training", firstCourse.getTitle());
-        assertEquals("Java programming basic knowledge training", firstCourse.getDescription());
+        assertEquals("Java Basics", firstCourse.getTitle());
+        assertEquals("Basic Java Programming Training", firstCourse.getDescription());
         assertNotNull(firstCourse.getId());
         assertNotNull(firstCourse.getDate());
         
         // 驗證第二個課程
         DepartmentResponse.CourseData secondCourse = firstDepartment.getCourses().get(1);
+<<<<<<< HEAD
 
         assertEquals("Spring Boot Introduction", secondCourse.getTitle());
         assertEquals("Spring Boot framework usage training", secondCourse.getDescription());
         assertNotNull(secondCourse.getId());
         assertNotNull(secondCourse.getDate());
+=======
+        assertEquals("Spring Boot Introduction", secondCourse.getTitle());
+        assertEquals("Spring Boot Framework Training", secondCourse.getDescription());
+        assertNotNull(secondCourse.getId());
+        assertNotNull(secondCourse.getDate());
+        
+        // 驗證課程列表的順序
+        assertTrue(firstCourse.getDate().compareTo(secondCourse.getDate()) <= 0,
+                  "課程應該按照日期排序");
+>>>>>>> ch
     }
 
     @Test
@@ -78,23 +89,28 @@ public class DepartmentControllerTest {
         DepartmentResponse.DepartmentData department = objectMapper.readValue(responseBody, DepartmentResponse.DepartmentData.class);
         
         // 驗證部門數據
-        assertEquals("R&D Department", department.getName());
+        assertEquals("Development", department.getName());
         
         // 驗證課程列表
         assertNotNull(department.getCourses());
-        assertEquals(2, department.getCourses().size(), "R&D Department 應該有2個課程");
+        assertEquals(2, department.getCourses().size(), "Development Department 應該有2個課程");
         
         // 驗證第一個課程
         DepartmentResponse.CourseData firstCourse = department.getCourses().get(0);
-        assertEquals("Java Basic Training", firstCourse.getTitle());
-        assertEquals("Java programming basic knowledge training", firstCourse.getDescription());
+        assertEquals("Java Basics", firstCourse.getTitle());
+        assertEquals("Basic Java Programming Training", firstCourse.getDescription());
         assertNotNull(firstCourse.getId());
         assertNotNull(firstCourse.getDate());
         
         // 驗證第二個課程
         DepartmentResponse.CourseData secondCourse = department.getCourses().get(1);
+<<<<<<< HEAD
         assertEquals("Python Basic Training", secondCourse.getTitle());
         assertEquals("Python programming basic knowledge training", secondCourse.getDescription());
+=======
+        assertEquals("Spring Boot Introduction", secondCourse.getTitle());
+        assertEquals("Spring Boot Framework Training", secondCourse.getDescription());
+>>>>>>> ch
         assertNotNull(secondCourse.getId());
         assertNotNull(secondCourse.getDate());
     }

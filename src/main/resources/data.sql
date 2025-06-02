@@ -1,4 +1,3 @@
-
 DROP TABLE IF EXISTS study_resources;
 DROP TABLE IF EXISTS courses;
 DROP TABLE IF EXISTS departments;
@@ -26,15 +25,16 @@ CREATE TABLE users (
   phone VARCHAR(16) NOT NULL
 );
 
-
 CREATE TABLE study_resources (
-  id INT AUTO_INCREMENT PRIMARY KEY,              -- 自增主键
-  course_id INT,                                  -- 关联 courses 表的外键
-  name VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, -- 资源文件名
-  file_size INT,                                  -- 文件大小（字节）
-  file_type VARCHAR(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci, -- 文件类型
-  upload_time DATETIME,                           -- 上传时间
-  FOREIGN KEY (course_id) REFERENCES courses(id) -- 外键约束，确保 course_id 存在于 courses 表中
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  course_id INT NOT NULL,
+  name VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  file_size BIGINT NOT NULL,
+  file_type VARCHAR(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  upload_time DATETIME NOT NULL,
+  download_count INT DEFAULT 0,
+  url VARCHAR(255) NOT NULL,
+  FOREIGN KEY (course_id) REFERENCES courses(id)
 );
 
 -- Clear data in correct order (reverse of dependencies)
@@ -51,9 +51,9 @@ ALTER TABLE users AUTO_INCREMENT = 1;
 
 -- Insert test departments
 INSERT INTO departments (name) VALUES 
-('R&D Department'),
-('Marketing Department'),
-('HR Department');
+('Development'),
+('Marketing'),
+('HR');
 
 -- Insert test courses
 INSERT INTO courses (department_id, title, description, date) VALUES 
@@ -69,10 +69,10 @@ INSERT INTO users (username, password, role, phone) VALUES
 ('testuser', 'password123', 'USER', '13800138000');
 
 -- Insert test study resources
-INSERT INTO study_resources (course_id, name, file_size, file_type, upload_time) VALUES 
-(1, 'Java Basic Guide.pdf', 1024576, 'application/pdf', '2024-03-15 10:00:00'),
-(1, 'Java Examples.zip', 2048576, 'application/zip', '2024-03-15 11:00:00'),
-(2, 'Python Tutorial.pdf', 1536576, 'application/pdf', '2024-03-16 10:00:00'),
-(2, 'Python Code Samples.zip', 3072576, 'application/zip', '2024-03-16 11:00:00'),
-(3, 'Marketing Slides.pptx', 5120576, 'application/vnd.openxmlformats-officedocument.presentationml.presentation', '2024-03-17 10:00:00'),
-(4, 'Brand Guidelines.pdf', 4096576, 'application/pdf', '2024-03-18 10:00:00');
+INSERT INTO study_resources (course_id, name, file_size, file_type, upload_time, download_count, url) VALUES 
+(1, 'Java Basic Guide.pdf', 1024576, 'application/pdf', '2024-03-15 10:00:00', 10, '/files/java-basic-guide.pdf'),
+(1, 'Java Examples.zip', 2048576, 'application/zip', '2024-03-15 11:00:00', 5, '/files/java-examples.zip'),
+(2, 'Python Tutorial.pdf', 1536576, 'application/pdf', '2024-03-16 10:00:00', 8, '/files/python-tutorial.pdf'),
+(2, 'Python Code Samples.zip', 3072576, 'application/zip', '2024-03-16 11:00:00', 6, '/files/python-code-samples.zip'),
+(3, 'Marketing Slides.pptx', 5120576, 'application/vnd.openxmlformats-officedocument.presentationml.presentation', '2024-03-17 10:00:00', 15, '/files/marketing-slides.pptx'),
+(4, 'Brand Guidelines.pdf', 4096576, 'application/pdf', '2024-03-18 10:00:00', 9, '/files/brand-guidelines.pdf');
