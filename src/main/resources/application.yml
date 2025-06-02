@@ -1,8 +1,13 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3307/firework_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/firework_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
-    password: qkwdszww211985
+    password: ajdpwcx
+#=======
+#    url: jdbc:mysql://localhost:3307/firework_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+#    username: root
+#    password: qkwdszww211985
+#>>>>>>> 5cd355a547469223b773e2e5d6c25f23906527c0
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -15,3 +20,4 @@ spring:
 
 server:
   port: 8080 
+

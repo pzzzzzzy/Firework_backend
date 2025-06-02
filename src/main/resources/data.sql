@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 DROP TABLE IF EXISTS favorite_resources;
 DROP TABLE IF EXISTS favorites;
+=======
+-- First drop tables with foreign key dependencies
+DROP TABLE IF EXISTS study_resources;
+>>>>>>> 5e59bce8f5d13be4dfd707033c485ee69a1c2c1d
 DROP TABLE IF EXISTS courses;
 DROP TABLE IF EXISTS departments;
 DROP TABLE IF EXISTS users;
@@ -26,6 +31,7 @@ CREATE TABLE users (
   phone VARCHAR(16) NOT NULL
 );
 
+<<<<<<< HEAD
 CREATE TABLE favorites (
     id VARCHAR(36) PRIMARY KEY,
     user_id INT NOT NULL,
@@ -49,15 +55,35 @@ CREATE TABLE favorite_resources (
 );
 
 -- Clear courses table and reset auto-increment primary key
-DELETE FROM courses;
-ALTER TABLE courses AUTO_INCREMENT = 1;
+=======
+CREATE TABLE study_resources (
+  id INT AUTO_INCREMENT PRIMARY KEY,              -- 自增主键
+  course_id INT,                                  -- 关联 courses 表的外键
+  name VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, -- 资源文件名
+  file_size INT,                                  -- 文件大小（字节）
+  file_type VARCHAR(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci, -- 文件类型
+  upload_time DATETIME,                           -- 上传时间
+  FOREIGN KEY (course_id) REFERENCES courses(id) -- 外键约束，确保 course_id 存在于 courses 表中
+);
 
--- Clear departments table and reset auto-increment primary key
+-- Clear data in correct order (reverse of dependencies)
+DELETE FROM study_resources;
+>>>>>>> 5e59bce8f5d13be4dfd707033c485ee69a1c2c1d
+DELETE FROM courses;
 DELETE FROM departments;
+<<<<<<< HEAD
 ALTER TABLE departments AUTO_INCREMENT = 1;
 
 -- Clear users table and reset auto-increment primary key
 DELETE FROM users;
+=======
+DELETE FROM users;
+
+-- Reset auto-increment values
+ALTER TABLE study_resources AUTO_INCREMENT = 1;
+ALTER TABLE courses AUTO_INCREMENT = 1;
+ALTER TABLE departments AUTO_INCREMENT = 1;
+>>>>>>> 5e59bce8f5d13be4dfd707033c485ee69a1c2c1d
 ALTER TABLE users AUTO_INCREMENT = 1;
 
 -- Insert test departments
@@ -97,6 +123,7 @@ INSERT INTO courses (department_id, title, description, date) VALUES
 INSERT INTO users (username, password, role, phone) VALUES 
 ('testuser', 'password123', 'USER', '13800138000');
 
+<<<<<<< HEAD
 -- Insert test favorites
 INSERT INTO favorites (id, user_id, name, description, is_public, resource_count) VALUES
 ('f1', 1, 'My Favorites', 'Personal favorite folder', true, 2),
@@ -107,3 +134,13 @@ INSERT INTO favorite_resources (id, favorite_id, title, file_type, size, upload_
 ('fr1', 'f1', 'Java Study Notes', 'PDF', 1024000, '2024-03-15 10:00:00'),
 ('fr2', 'f1', 'Spring Boot Tutorial', 'PDF', 2048000, '2024-03-15 11:00:00'),
 ('fr3', 'f2', 'Project Plan', 'DOCX', 512000, '2024-03-15 12:00:00');
+=======
+-- Insert test study resources
+INSERT INTO study_resources (course_id, name, file_size, file_type, upload_time) VALUES 
+(1, 'Java Basic Guide.pdf', 1024576, 'application/pdf', '2024-03-15 10:00:00'),
+(1, 'Java Examples.zip', 2048576, 'application/zip', '2024-03-15 11:00:00'),
+(2, 'Python Tutorial.pdf', 1536576, 'application/pdf', '2024-03-16 10:00:00'),
+(2, 'Python Code Samples.zip', 3072576, 'application/zip', '2024-03-16 11:00:00'),
+(3, 'Marketing Slides.pptx', 5120576, 'application/vnd.openxmlformats-officedocument.presentationml.presentation', '2024-03-17 10:00:00'),
+(4, 'Brand Guidelines.pdf', 4096576, 'application/pdf', '2024-03-18 10:00:00');
+>>>>>>> 5e59bce8f5d13be4dfd707033c485ee69a1c2c1d
