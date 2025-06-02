@@ -88,4 +88,60 @@ public class CourseFileControllerTest {
                 .andExpect(status().isNotFound())
                 .andReturn();
     }
+
+    @Test
+    public void testSearchFiles() throws Exception {
+        // Test searching files with keyword "Java"
+        MvcResult result = mockMvc.perform(get("/api/files/search")
+                .param("keyword", "Java"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        // Verify response
+        String responseBody = result.getResponse().getContentAsString();
+        CourseFileResponse response = objectMapper.readValue(responseBody, CourseFileResponse.class);
+
+        // Verify basic response info
+        assertEquals(200, response.getCode());
+        assertEquals("Search successful", response.getMessage());
+        assertNotNull(response.getData());
+
+        // Verify file list is not empty and contains 3 files
+        assertFalse(response.getData().isEmpty());
+        assertEquals(3, response.getData().size());
+
+        // Verify all files contain "Java" in their titles
+        for (CourseFileResponse.CourseFile file : response.getData()) {
+            assertTrue(file.getTitle().contains("Java"));
+        }
+    }
+
+    @Test
+    public void testSearchFilesWithNoResults() throws Exception {
+        // Test searching files with a keyword that should return no results
+        MvcResult result = mockMvc.perform(get("/api/files/search")
+                .param("keyword", "NonExistentKeyword"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        // Verify response
+        String responseBody = result.getResponse().getContentAsString();
+        CourseFileResponse response = objectMapper.readValue(responseBody, CourseFileResponse.class);
+
+        // Verify basic response info
+        assertEquals(200, response.getCode());
+        assertEquals("Search successful", response.getMessage());
+        assertNotNull(response.getData());
+
+        // Verify file list is empty
+        assertTrue(response.getData().isEmpty());
+    }
+
+    @Test
+    public void testSearchFilesWithEmptyKeyword() throws Exception {
+        // Test searching files with empty keyword
+        mockMvc.perform(get("/api/files/search")
+                .param("keyword", ""))
+                .andExpect(status().isBadRequest());
+    }
 } 
