@@ -29,8 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/api/auth/**").permitAll()
             .antMatchers("/api/departments/**").permitAll()
-            .antMatchers("/api/files/chunk").permitAll()
-            .antMatchers("/api/files/merge").permitAll()
+            .antMatchers("/api/files/**").permitAll()
+            .antMatchers("/api/user/favorite").permitAll()
             .anyRequest().authenticated();
     }
 
