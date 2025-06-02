@@ -1,4 +1,4 @@
--- First drop tables with foreign key dependencies
+
 DROP TABLE IF EXISTS study_resources;
 DROP TABLE IF EXISTS courses;
 DROP TABLE IF EXISTS departments;
@@ -25,6 +25,7 @@ CREATE TABLE users (
   role VARCHAR(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   phone VARCHAR(16) NOT NULL
 );
+
 
 CREATE TABLE study_resources (
   id INT AUTO_INCREMENT PRIMARY KEY,              -- 自增主键
@@ -57,7 +58,7 @@ INSERT INTO departments (name) VALUES
 -- Insert test courses
 INSERT INTO courses (department_id, title, description, date) VALUES 
 (1, 'Java Basic Training', 'Java programming basic knowledge training', '2024-03-15'),
-(1, 'Spring Boot Introduction', 'Spring Boot framework usage training', '2024-03-16'),
+(1, 'Python Basic Training', 'Python programming basic knowledge training', '2024-03-16'),
 (2, 'Marketing Strategy', 'Basic knowledge training of marketing', '2024-03-17'),
 (2, 'Brand Management', 'Brand building and management training', '2024-03-18'),
 (3, 'Recruitment Skills', 'Efficient recruitment skills training', '2024-03-19'),

@@ -59,6 +59,7 @@ public class DepartmentControllerTest {
         
         // 驗證第二個課程
         DepartmentResponse.CourseData secondCourse = firstDepartment.getCourses().get(1);
+
         assertEquals("Spring Boot Introduction", secondCourse.getTitle());
         assertEquals("Spring Boot framework usage training", secondCourse.getDescription());
         assertNotNull(secondCourse.getId());
@@ -92,8 +93,8 @@ public class DepartmentControllerTest {
         
         // 驗證第二個課程
         DepartmentResponse.CourseData secondCourse = department.getCourses().get(1);
-        assertEquals("Spring Boot Introduction", secondCourse.getTitle());
-        assertEquals("Spring Boot framework usage training", secondCourse.getDescription());
+        assertEquals("Python Basic Training", secondCourse.getTitle());
+        assertEquals("Python programming basic knowledge training", secondCourse.getDescription());
         assertNotNull(secondCourse.getId());
         assertNotNull(secondCourse.getDate());
     }
