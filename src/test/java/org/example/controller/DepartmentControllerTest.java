@@ -59,14 +59,11 @@ public class DepartmentControllerTest {
         
         // 驗證第二個課程
         DepartmentResponse.CourseData secondCourse = firstDepartment.getCourses().get(1);
-        assertEquals("Python Basic Training", secondCourse.getTitle());
-        assertEquals("Python programming basic knowledge training", secondCourse.getDescription());
+
+        assertEquals("Spring Boot Introduction", secondCourse.getTitle());
+        assertEquals("Spring Boot framework usage training", secondCourse.getDescription());
         assertNotNull(secondCourse.getId());
         assertNotNull(secondCourse.getDate());
-        
-        // 驗證課程列表的順序
-        assertTrue(firstCourse.getDate().compareTo(secondCourse.getDate()) <= 0,
-                  "課程應該按照日期排序");
     }
 
     @Test

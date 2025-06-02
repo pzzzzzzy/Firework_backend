@@ -1,3 +1,4 @@
+
 DROP TABLE IF EXISTS study_resources;
 DROP TABLE IF EXISTS courses;
 DROP TABLE IF EXISTS departments;
@@ -25,28 +26,28 @@ CREATE TABLE users (
   phone VARCHAR(16) NOT NULL
 );
 
--- Create study_resources table
+
 CREATE TABLE study_resources (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  course_id INT,
-  name VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  file_size BIGINT NOT NULL,
-  file_type VARCHAR(50) NOT NULL,
-  upload_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (course_id) REFERENCES courses(id)
+  id INT AUTO_INCREMENT PRIMARY KEY,              -- 自增主键
+  course_id INT,                                  -- 关联 courses 表的外键
+  name VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, -- 资源文件名
+  file_size INT,                                  -- 文件大小（字节）
+  file_type VARCHAR(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci, -- 文件类型
+  upload_time DATETIME,                           -- 上传时间
+  FOREIGN KEY (course_id) REFERENCES courses(id) -- 外键约束，确保 course_id 存在于 courses 表中
 );
 
--- Clear courses table and reset auto-increment primary key
+-- Clear data in correct order (reverse of dependencies)
+DELETE FROM study_resources;
 DELETE FROM courses;
-ALTER TABLE courses AUTO_INCREMENT = 1;
-
--- Clear departments table and reset auto-increment primary key
 DELETE FROM departments;
-ALTER TABLE departments AUTO_INCREMENT = 1;
-
--- Clear users table and reset auto-increment primary key (if any)
 DELETE FROM users;
--- ALTER TABLE users AUTO_INCREMENT = 1;  -- Uncomment if there is an auto-increment primary key
+
+-- Reset auto-increment values
+ALTER TABLE study_resources AUTO_INCREMENT = 1;
+ALTER TABLE courses AUTO_INCREMENT = 1;
+ALTER TABLE departments AUTO_INCREMENT = 1;
+ALTER TABLE users AUTO_INCREMENT = 1;
 
 -- Insert test departments
 INSERT INTO departments (name) VALUES 

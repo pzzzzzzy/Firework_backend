@@ -12,8 +12,10 @@ public class StudyResource {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "course_id")
-    private Long courseId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -27,7 +29,17 @@ public class StudyResource {
     @Column(name = "upload_time")
     private LocalDateTime uploadTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id", insertable = false, updatable = false)
-    private Course course;
-} 
+
+    // Getter for courseId
+    public Long getCourseId() {
+        return course != null ? course.getId() : null;
+    }
+
+    // Setter for courseId
+    public void setCourseId(Long courseId) {
+        if (this.course == null) {
+            this.course = new Course();
+        }
+        this.course.setId(courseId);
+    }
+}
