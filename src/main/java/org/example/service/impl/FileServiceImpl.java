@@ -31,7 +31,7 @@ public class FileServiceImpl implements FileService {
         }
 
         // 获取课程的所有文件
-        List<StudyResource> resources = studyResourceRepository.findByCourseId(courseId);
+        List<StudyResource> resources = studyResourceRepository.findByCourse_Id(courseId);
 
         // 转换为响应格式
         FileListResponse response = new FileListResponse();
