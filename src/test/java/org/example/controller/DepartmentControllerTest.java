@@ -40,10 +40,11 @@ public class DepartmentControllerTest {
         
         // 驗證數據
         assertNotNull(response.getData());
-        assertEquals(3, response.getData().size()); // 應該有3個部門
+        assertEquals(4, response.getData().size()); // 應該有4個部門
         
         // 驗證第一個部門的數據
         DepartmentResponse.DepartmentData firstDepartment = response.getData().get(0);
+<<<<<<< HEAD
         assertEquals("Development", firstDepartment.getName());
         
         // 驗證第一個部門的所有課程
@@ -54,15 +55,34 @@ public class DepartmentControllerTest {
         DepartmentResponse.CourseData firstCourse = firstDepartment.getCourses().get(0);
         assertEquals("Java Basics", firstCourse.getTitle());
         assertEquals("Basic Java Programming Training", firstCourse.getDescription());
+=======
+        assertEquals("Computer Science Department", firstDepartment.getName());
+        
+        // 驗證第一個部門的所有課程
+        assertNotNull(firstDepartment.getCourses());
+        assertEquals(4, firstDepartment.getCourses().size(), "Computer Science Department 應該有4個課程");
+        
+        // 驗證第一個課程
+        DepartmentResponse.CourseData firstCourse = firstDepartment.getCourses().get(0);
+        assertEquals("Data Structures and Algorithms", firstCourse.getTitle());
+        assertEquals("Fundamental data structures and algorithm design", firstCourse.getDescription());
+>>>>>>> aa25a8ba9dffd68683ff7b8108aa78fda4051845
         assertNotNull(firstCourse.getId());
         assertNotNull(firstCourse.getDate());
         
         // 驗證第二個課程
         DepartmentResponse.CourseData secondCourse = firstDepartment.getCourses().get(1);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        assertEquals("Database Systems", secondCourse.getTitle());
+        assertEquals("Database design and management principles", secondCourse.getDescription());
+=======
+>>>>>>> aa25a8ba9dffd68683ff7b8108aa78fda4051845
 
         assertEquals("Spring Boot Introduction", secondCourse.getTitle());
         assertEquals("Spring Boot framework usage training", secondCourse.getDescription());
+>>>>>>> 61e1b47dcabb2e89fc5cf8a83377ae21cb3c2843
         assertNotNull(secondCourse.getId());
         assertNotNull(secondCourse.getDate());
 =======
@@ -89,6 +109,7 @@ public class DepartmentControllerTest {
         DepartmentResponse.DepartmentData department = objectMapper.readValue(responseBody, DepartmentResponse.DepartmentData.class);
         
         // 驗證部門數據
+<<<<<<< HEAD
         assertEquals("Development", department.getName());
         
         // 驗證課程列表
@@ -99,11 +120,24 @@ public class DepartmentControllerTest {
         DepartmentResponse.CourseData firstCourse = department.getCourses().get(0);
         assertEquals("Java Basics", firstCourse.getTitle());
         assertEquals("Basic Java Programming Training", firstCourse.getDescription());
+=======
+        assertEquals("Computer Science Department", department.getName());
+        
+        // 驗證課程列表
+        assertNotNull(department.getCourses());
+        assertEquals(4, department.getCourses().size(), "Computer Science Department 應該有4個課程");
+        
+        // 驗證第一個課程
+        DepartmentResponse.CourseData firstCourse = department.getCourses().get(0);
+        assertEquals("Data Structures and Algorithms", firstCourse.getTitle());
+        assertEquals("Fundamental data structures and algorithm design", firstCourse.getDescription());
+>>>>>>> aa25a8ba9dffd68683ff7b8108aa78fda4051845
         assertNotNull(firstCourse.getId());
         assertNotNull(firstCourse.getDate());
         
         // 驗證第二個課程
         DepartmentResponse.CourseData secondCourse = department.getCourses().get(1);
+<<<<<<< HEAD
 <<<<<<< HEAD
         assertEquals("Python Basic Training", secondCourse.getTitle());
         assertEquals("Python programming basic knowledge training", secondCourse.getDescription());
@@ -111,6 +145,14 @@ public class DepartmentControllerTest {
         assertEquals("Spring Boot Introduction", secondCourse.getTitle());
         assertEquals("Spring Boot Framework Training", secondCourse.getDescription());
 >>>>>>> ch
+=======
+        assertEquals("Database Systems", secondCourse.getTitle());
+        assertEquals("Database design and management principles", secondCourse.getDescription());
+=======
+        assertEquals("Python Basic Training", secondCourse.getTitle());
+        assertEquals("Python programming basic knowledge training", secondCourse.getDescription());
+>>>>>>> 61e1b47dcabb2e89fc5cf8a83377ae21cb3c2843
+>>>>>>> aa25a8ba9dffd68683ff7b8108aa78fda4051845
         assertNotNull(secondCourse.getId());
         assertNotNull(secondCourse.getDate());
     }
