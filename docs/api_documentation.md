@@ -148,23 +148,39 @@
 
 ## 收藏夾相關 API
 
+
 ### 獲取用戶收藏夾信息
 - **URL**: `/api/user/favorite`
 - **方法**: `GET`
+- **需要認證**: 是
+- **權限要求**: 已登入用戶
 - **響應**:
   ```json
   {
-    "name": "string",        // 收藏夾名稱
-    "description": "string", // 收藏夾描述
-    "resources": [
-      {
-        "id": "string",   // 資源ID
-        "name": "string", // 資源名稱
-        "type": "string"  // 資源類型
-      }
-    ]
+    "code": 200,           // 狀態碼
+    "message": "success",  // 響應消息
+    "data": {
+      "id": "string",      // 收藏夾ID
+      "userId": "string",  // 所屬用戶ID
+      "name": "string",    // 收藏夾名稱
+      "description": "string", // 收藏夾描述
+      "isPublic": boolean, // 是否公開
+      "resourceCount": number, // 資源數量
+      "createdAt": "string",   // 創建時間
+      "updatedAt": "string",   // 更新時間
+      "resources": [           // 收藏的資源列表
+        {
+          "id": "string",      // 資源ID
+          "title": "string",   // 資源名稱
+          "fileType": "string", // 文件類型
+          "size": number,      // 文件大小（字節）
+          "uploadTime": "string" // 上傳時間
+        }
+      ]
+    }
   }
   ```
+
 
 ### 更新收藏夾信息
 - **URL**: `/api/user/favorite`
@@ -172,36 +188,52 @@
 - **請求體**:
   ```json
   {
-    "name": "string",        // 收藏夾名稱
-    "description": "string"  // 收藏夾描述
-  }
-  ```
+  "name": "string",        // 收藏夾名稱
+  "description": "string", // 收藏夾描述
+  "isPublic": boolean      // 是否公開（可選）
+}
+
 - **響應**:
   ```json
   {
-    "message": "string",     // 更新成功提示信息
-    "favorite": {
-      "name": "string",      // 更新後的收藏夾名稱
-      "description": "string" // 更新後的收藏夾描述
-    }
+  "code": 200,           // 狀態碼
+  "message": "更新成功",  // 響應消息
+  "data": {
+    "id": "string",      // 收藏夾ID
+    "userId": "string",  // 所屬用戶ID
+    "name": "string",    // 更新後的收藏夾名稱
+    "description": "string", // 更新後的收藏夾描述
+    "isPublic": boolean, // 更新後的公開狀態
+    "resourceCount": number, // 資源數量
+    "createdAt": "string",   // 創建時間
+    "updatedAt": "string"    // 更新時間
   }
+}
   ```
-
+```
 ### 添加資源到收藏夾
 - **URL**: `/api/favorite/resources`
 - **方法**: `POST`
 - **請求體**:
   ```json
   {
-    "resourceId": "string"  // 要添加的資源ID
-  }
-  ```
+  "resourceId": "string"  // 要添加的資源ID
+}
+  
 - **響應**:
   ```json
   {
-    "message": "string"  // 添加成功提示信息
+  "code": 200,           // 狀態碼
+  "message": "添加成功",  // 響應消息
+  "data": {
+    "id": "string",      // 收藏記錄ID
+    "favoriteId": "string", // 收藏夾ID
+    "resourceId": "string", // 資源ID
+    "resourceName": "string", // 資源名稱
+    "resourceType": "string", // 資源類型
+    "createdAt": "string"    // 收藏時間
   }
-  ```
+}
 
 ### 從收藏夾移除資源
 - **URL**: `/api/favorite/resources/{resourceId}`
@@ -211,9 +243,16 @@
 - **響應**:
   ```json
   {
-    "message": "string"  // 移除成功提示信息
+  "code": 200,           // 狀態碼
+  "message": "移除成功",  // 響應消息
+  "data": {
+    "id": "string",      // 被移除的收藏記錄ID
+    "resourceId": "string", // 被移除的資源ID
+    "removedAt": "string"   // 移除時間
   }
+}
   ```
+
 
 ## 文件相關 API
 
