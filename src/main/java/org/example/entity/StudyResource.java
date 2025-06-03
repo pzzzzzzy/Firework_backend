@@ -10,8 +10,7 @@ import java.time.LocalDateTime;
 public class StudyResource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
@@ -26,9 +25,14 @@ public class StudyResource {
     @Column(name = "file_type", nullable = false, length = 100)
     private String fileType;
 
-    @Column(name = "upload_time")
+    @Column(name = "upload_time", nullable = false)
     private LocalDateTime uploadTime;
 
+    @Column(name = "download_count", nullable = false)
+    private int downloadCount = 0;
+
+    @Column(nullable = false)
+    private String url;
 
     // Getter for courseId
     public Long getCourseId() {

@@ -57,7 +57,7 @@ public class AuthControllerTest {
         // 准备错误的测试数据
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setPhone("13900139000");
-        loginRequest.setPassword("wrongpass123"); // 修改为符合格式的密码
+        loginRequest.setPassword("wrongpass123");
 
         // 执行登录请求
         MvcResult result = mockMvc.perform(post("/api/auth/login")
@@ -78,7 +78,7 @@ public class AuthControllerTest {
     public void testInvalidPhoneFormat() throws Exception {
         // 准备无效的手机号格式
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setPhone("1234567890"); // 无效的手机号
+        loginRequest.setPhone("1234567890");
         loginRequest.setPassword("password123");
 
         // 执行登录请求
@@ -101,7 +101,7 @@ public class AuthControllerTest {
         // 准备无效的密码格式
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setPhone("13800138000");
-        loginRequest.setPassword("123456"); // 只有数字，没有字母
+        loginRequest.setPassword("123456");
 
         // 执行登录请求
         MvcResult result = mockMvc.perform(post("/api/auth/login")
@@ -122,8 +122,8 @@ public class AuthControllerTest {
     public void testRegisterSuccess() throws Exception {
         // 準備測試數據
         RegisterRequest registerRequest = new RegisterRequest();
-        registerRequest.setPhone("13900139000");
-        registerRequest.setUsername("testuser2");
+        registerRequest.setPhone("13900139999");
+        registerRequest.setUsername("testuser999");
         registerRequest.setPassword("password123");
 
         // 執行註冊請求
@@ -139,8 +139,13 @@ public class AuthControllerTest {
         
         assertEquals(200, response.getCode());
         assertEquals("Register success", response.getMessage());
+<<<<<<< HEAD
         assertEquals("13900139000", response.getData().getPhone());
         assertEquals("testuser2", response.getData().getUsername());
+=======
+        assertEquals("13900139999", response.getData().getPhone());
+        assertEquals("testuser999", response.getData().getUsername());
+>>>>>>> ch
         assertEquals("USER", response.getData().getRole());
     }
 
@@ -148,7 +153,7 @@ public class AuthControllerTest {
     public void testRegisterWithExistingPhone() throws Exception {
         // 準備測試數據（使用已存在的手機號）
         RegisterRequest registerRequest = new RegisterRequest();
-        registerRequest.setPhone("13800138000"); // 使用已存在的手機號
+        registerRequest.setPhone("13800138000");
         registerRequest.setUsername("testuser3");
         registerRequest.setPassword("password123");
 
@@ -171,7 +176,7 @@ public class AuthControllerTest {
     public void testRegisterWithInvalidPhone() throws Exception {
         // 準備測試數據（無效的手機號）
         RegisterRequest registerRequest = new RegisterRequest();
-        registerRequest.setPhone("1234567890"); // 無效的手機號
+        registerRequest.setPhone("1234567890");
         registerRequest.setUsername("testuser4");
         registerRequest.setPassword("password123");
 
@@ -196,7 +201,7 @@ public class AuthControllerTest {
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setPhone("13900139001");
         registerRequest.setUsername("testuser5");
-        registerRequest.setPassword("123"); // 無效的密碼
+        registerRequest.setPassword("123");
 
         // 執行註冊請求
         MvcResult result = mockMvc.perform(post("/api/auth/register")

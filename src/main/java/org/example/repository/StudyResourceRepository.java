@@ -3,12 +3,12 @@ package org.example.repository;
 import org.example.entity.StudyResource;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
 public interface StudyResourceRepository extends JpaRepository<StudyResource, Integer> {
     // 根据课程ID查找所有学习资源
+
     List<StudyResource> findByCourse_Id(Long courseId);
 
     // 根据文件类型查找学习资源

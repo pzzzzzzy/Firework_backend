@@ -18,11 +18,10 @@ INSERT INTO users (username, password, role, phone) VALUES
 ('testuser', 'password123', 'USER', '13800138000');
 
 -- Insert test study resources
-INSERT INTO study_resources (course_id, name, file_size, file_type, upload_time) 
-VALUES 
-    (1, 'Java Basic Guide.pdf', 1024576, 'application/pdf', '2024-03-15 10:00:00'),
-    (1, 'Java Examples.zip', 2048576, 'application/zip', '2024-03-15 11:00:00'),
-    (2, 'Python Tutorial.pdf', 1536576, 'application/pdf', '2024-03-16 10:00:00'),
-    (2, 'Python Code Samples.zip', 3072576, 'application/zip', '2024-03-16 11:00:00'),
-    (3, 'Marketing Slides.pptx', 5120576, 'application/vnd.ms-powerpoint', '2024-03-17 10:00:00'),
-    (4, 'Brand Guidelines.pdf', 4096576, 'application/pdf', '2024-03-18 10:00:00'); 
+INSERT INTO study_resources (course_id, name, file_size, file_type, upload_time, download_count, url) VALUES 
+(1, 'Java Basic Guide.pdf', 1024576, 'application/pdf', '2024-03-15 10:00:00', 10, '/files/java-basic-guide.pdf'),
+(1, 'Java Examples.zip', 2048576, 'application/zip', '2024-03-15 11:00:00', 5, '/files/java-examples.zip'),
+(2, 'Python Tutorial.pdf', 1536576, 'application/pdf', '2024-03-16 10:00:00', 8, '/files/python-tutorial.pdf'),
+(2, 'Python Code Samples.zip', 3072576, 'application/zip', '2024-03-16 11:00:00', 6, '/files/python-code-samples.zip'),
+(3, 'Marketing Slides.pptx', 5120576, 'application/vnd.ms-powerpoint', '2024-03-17 10:00:00', 15, '/files/marketing-slides.pptx'),
+(4, 'Brand Guidelines.pdf', 4096576, 'application/pdf', '2024-03-18 10:00:00', 9, '/files/brand-guidelines.pdf'); 
