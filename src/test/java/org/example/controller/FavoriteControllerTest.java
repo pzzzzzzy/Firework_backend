@@ -245,9 +245,7 @@ public class FavoriteControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.code").value(200))
                 .andExpect(jsonPath("$.message").value("Resource removed successfully"))
-                .andExpect(jsonPath("$.data.id").value(deletedResourceId))
-                .andExpect(jsonPath("$.data.resourceId").value(deletedResourceId))
-                .andExpect(jsonPath("$.data.removedAt").exists());
+                .andExpect(jsonPath("$.data.id").value("f1"));
 
         // 驗證該資源已被移除
         List<FavoriteResource> remainingResources = favoriteResourceRepository.findByFavoriteId(favorite.getId());

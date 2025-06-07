@@ -222,19 +222,38 @@ public class FavoriteController {
 
         // 更新收藏夾的資源計數
         favorite.setResourceCount(favorite.getResourceCount() - 1);
-        favoriteRepository.save(favorite);
+        favorite = favoriteRepository.save(favorite);
+
+        // 獲取更新後的資源列表
+        List<FavoriteResource> resources = favoriteResourceRepository.findByFavoriteId(favorite.getId());
+        List<FavoriteResponse.ResourceData> resourceDataList = resources.stream()
+            .map(r -> FavoriteResponse.ResourceData.builder()
+                .id(r.getId())
+                .resourceId(r.getId())
+                .title(r.getTitle())
+                .fileType(r.getFileType())
+                .size(r.getSize())
+                .uploadTime(r.getUploadTime().toString())
+                .build())
+            .collect(Collectors.toList());
 
         // 構建響應
-        FavoriteResponse.ResourceData resourceData = FavoriteResponse.ResourceData.builder()
-                .id(resource.getId())
-                .resourceId(resource.getId())
-                .removedAt(LocalDateTime.now().toString())
-                .build();
+        FavoriteResponse.FavoriteData favoriteData = FavoriteResponse.FavoriteData.builder()
+            .id(favorite.getId())
+            .userId(favorite.getUserId())
+            .name(favorite.getName())
+            .description(favorite.getDescription())
+            .isPublic(favorite.getIsPublic())
+            .resourceCount(favorite.getResourceCount())
+            .createdAt(favorite.getCreatedAt() == null ? null : favorite.getCreatedAt().toString())
+            .updatedAt(favorite.getUpdatedAt() == null ? null : favorite.getUpdatedAt().toString())
+            .resources(resourceDataList)
+            .build();
 
         return ResponseEntity.ok(FavoriteResponse.builder()
                 .code(200)
                 .message("Resource removed successfully")
-                .data(resourceData)
+                .data(favoriteData)
                 .build());
     }
 } 
