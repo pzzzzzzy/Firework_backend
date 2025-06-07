@@ -19,4 +19,7 @@ public interface StudyResourceRepository extends JpaRepository<StudyResource, In
     
     // 根据文件名模糊搜索
     List<StudyResource> findByNameContainingIgnoreCase(String keyword);
+    
+ // 根据文件名精确搜索
+    List<StudyResource> findByName(String name); 
 } 

@@ -1,7 +1,10 @@
 package org.example.service;
 
+import org.example.entity.Version;
+import org.example.repository.VersionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +23,8 @@ import java.util.UUID;
 public class FileUploadService {
     
     private static final Logger logger = LoggerFactory.getLogger(FileUploadService.class);
+    
+
     
     @Value("${file.upload.dir}")
     private String uploadDir;
@@ -59,6 +64,7 @@ public class FileUploadService {
             // 保存文件
             file.transferTo(dest);
 
+            
             response.put("code", 200);
             response.put("message", "文件上传成功");
             response.put("data", new HashMap<String, Object>() {{

@@ -14,7 +14,7 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/user/auth")
 public class AuthController {
 
     @Autowired

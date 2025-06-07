@@ -28,6 +28,9 @@ public class StudyResource {
 
     @Column(name = "upload_time")
     private LocalDateTime uploadTime;
+    
+    @JoinColumn(name = "version_id", nullable = false)
+    private String versionId;
 
 
     // Getter for courseId

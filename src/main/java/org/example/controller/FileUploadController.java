@@ -2,8 +2,10 @@ package org.example.controller;
 
 import org.example.entity.Course;
 import org.example.entity.StudyResource;
+import org.example.entity.Version;
 import org.example.repository.CourseRepository;
 import org.example.repository.StudyResourceRepository;
+import org.example.repository.VersionRepository;
 import org.example.service.FileUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,11 @@ public class FileUploadController {
 
     @Autowired
     private CourseRepository courseRepository;
+    
+    @Autowired
+    private VersionRepository versionRepository;
+    
+    private static String filepath;
 
     @PostMapping("/chunk")
     public ResponseEntity<Map<String, Object>> uploadChunk(
@@ -39,7 +46,8 @@ public class FileUploadController {
             if ((int) uploadResult.get("code") != 200) {
                 return ResponseEntity.status(500).body(uploadResult);
             }
-
+            Map<String, Object> fileData = (Map<String, Object>) uploadResult.get("data");
+            filepath = (String) fileData.get("filePath");//获得文件路径
             // 构建响应
             Map<String, Object> response = new HashMap<>();
             response.put("code", 200);
@@ -71,7 +79,7 @@ public class FileUploadController {
             // 获取课程实体
             Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found"));
-
+       
             // 保存文件信息到数据库
             StudyResource resource = new StudyResource();
             resource.setName(fileName);
@@ -80,15 +88,23 @@ public class FileUploadController {
             resource.setCourse(course);
             resource.setUploadTime(LocalDateTime.now());
 
+            //新建一个版本
+            Version version=new Version();   
+            //保存版本信息
+            version.setFilePath(filepath);
+            versionRepository.save(version);
+            resource.setVersionId(version.getVersionId());
             // 保存到数据库
             StudyResource savedResource = studyResourceRepository.save(resource);
-
             // 构建响应
             Map<String, Object> response = new HashMap<>();
             response.put("code", 200);
             response.put("message", "文件信息保存成功");
             
             Map<String, Object> responseData = new HashMap<>();
+
+
+            
             responseData.put("fileId", savedResource.getId());
             responseData.put("fileName", savedResource.getName());
             responseData.put("fileSize", savedResource.getFileSize());

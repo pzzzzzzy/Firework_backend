@@ -1,5 +1,6 @@
 -- Clear existing data
 DELETE FROM study_resources;
+DELETE FROM versions;
 DELETE FROM favorite_resources;
 DELETE FROM favorites;
 DELETE FROM courses;
@@ -48,12 +49,21 @@ INSERT INTO favorite_resources (id, favorite_id, title, file_type, size, upload_
 ('fr1', 'f1', 'Java Study Notes', 'PDF', 1024000, '2024-03-15 10:00:00'),
 ('fr2', 'f1', 'Spring Boot Tutorial', 'PDF', 2048000, '2024-03-15 11:00:00'),
 ('fr3', 'f2', 'Project Plan', 'DOCX', 512000, '2024-03-15 12:00:00');
+--- 创建版本表
+INSERT INTO versions ( file_path) VALUES
+('/resources/java/Java_Basic_Guide_v1.0.pdf'),
+( '/resources/java/Java_Basic_Guide_v1.1.pdf'),
+('/resources/python/Python_Tutorial_v2.0.pdf'),
+('/resources/python/Python_Tutorial_v1.0.pdf'),
+('/resources/marketing/Marketing_Slides_v1.0.pptx'),
+('/resources/branding/Brand_Guidelines_v1.0.pdf');
 
 -- Insert test study resources
-INSERT INTO study_resources (course_id, name, file_size, file_type, upload_time) VALUES 
-(1, 'Java Basic Guide.pdf', 1024576, 'application/pdf', '2024-03-15 10:00:00'),
-(1, 'Java Examples.zip', 2048576, 'application/zip', '2024-03-15 11:00:00'),
-(2, 'Python Tutorial.pdf', 1536576, 'application/pdf', '2024-03-16 10:00:00'),
-(2, 'Python Code Samples.zip', 3072576, 'application/zip', '2024-03-16 11:00:00'),
-(3, 'Marketing Slides.pptx', 5120576, 'application/vnd.ms-powerpoint', '2024-03-17 10:00:00'),
-(4, 'Brand Guidelines.pdf', 4096576, 'application/pdf', '2024-03-18 10:00:00');
+INSERT INTO study_resources (course_id, name, file_size, file_type, upload_time,version_id) VALUES 
+(1, 'Java Basic Guide.pdf', 1024576, 'application/pdf', '2024-03-15 10:00:00',1),
+(1, 'Java Examples.zip', 2048576, 'application/zip', '2024-03-15 11:00:00',2),
+(2, 'Python Tutorial.pdf', 1536576, 'application/pdf', '2024-03-16 10:00:00',3),
+(2, 'Python Code Samples.zip', 3072576, 'application/zip', '2024-03-16 11:00:00',4),
+(3, 'Marketing Slides.pptx', 5120576, 'application/vnd.ms-powerpoint', '2024-03-17 10:00:00',5),
+(4, 'Brand Guidelines.pdf', 4096576, 'application/pdf', '2024-03-18 10:00:00',6);
+

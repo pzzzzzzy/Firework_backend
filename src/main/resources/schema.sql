@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS favorite_resources;
 DROP TABLE IF EXISTS favorites;
 DROP TABLE IF EXISTS study_resources;
+DROP TABLE IF EXISTS versions;
 DROP TABLE IF EXISTS courses;
 DROP TABLE IF EXISTS departments;
 DROP TABLE IF EXISTS users;
@@ -24,7 +25,7 @@ CREATE TABLE users (
   username VARCHAR(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   password VARCHAR(128) NOT NULL,
   role VARCHAR(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  phone VARCHAR(16) NOT NULL
+  phone VARCHAR(20) NOT NULL  -- Adjust phone size if necessary
 );
 
 CREATE TABLE favorites (
@@ -49,6 +50,11 @@ CREATE TABLE favorite_resources (
     FOREIGN KEY (favorite_id) REFERENCES favorites(id)
 );
 
+CREATE TABLE versions (
+    version_id INT AUTO_INCREMENT PRIMARY KEY,
+    file_path VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE study_resources (
   id INT AUTO_INCREMENT PRIMARY KEY,
   course_id INT,
@@ -56,5 +62,7 @@ CREATE TABLE study_resources (
   file_size BIGINT NOT NULL,
   file_type VARCHAR(128) NOT NULL,
   upload_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (course_id) REFERENCES courses(id)
-); 
+  version_id INT NOT NULL,
+  FOREIGN KEY (course_id) REFERENCES courses(id),
+  FOREIGN KEY (version_id) REFERENCES versions(version_id)
+);
