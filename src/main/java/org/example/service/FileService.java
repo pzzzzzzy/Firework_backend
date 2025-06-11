@@ -24,9 +24,9 @@ public interface FileService {
     //版本控制相关
 
     StudyResource previewFileVersion(String fileId, String versionId);
-
+    //删除版本
 	String deleteFileVersion(String fileId, String versionId);
-
+	//下载版本
 	byte[] downloadFileVersion(String fileId, String versionId);
 
 	List<Version> getFileVersions(String fileId);
