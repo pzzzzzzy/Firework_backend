@@ -96,7 +96,7 @@ Firework_backend-main/
 └── resources/                  # 测试数据文件
 ├── data.sql               # 测试用数据库数据
 └── schema.sql             # 测试用数据库表结构
-
+```
 
 ## 技术栈
 - **Spring Boot**：用于快速开发 RESTful Web 服务。
